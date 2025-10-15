@@ -1,22 +1,29 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database/connection');
 const Product = sequelize.define('Product', {
- name: {
- type: DataTypes.STRING,
- allowNull: false
- },
- price: {
- type: DataTypes.FLOAT,
- allowNull: false
- },
- description: {
- type: DataTypes.TEXT
- },
- stock: {
- type: DataTypes.INTEGER,
- defaultValue: 0
- }
+  id: { 
+    type: DataTypes.INTEGER, 
+    primaryKey: true, 
+    autoIncrement: true 
+  },
+  nombre: { 
+    type: DataTypes.STRING, 
+    allowNull: false 
+  },
+  descripcion: { 
+    type: DataTypes.TEXT 
+  },
+  precio: { 
+    type: DataTypes.FLOAT, 
+    allowNull: false 
+  },
+  stock: { 
+    type: DataTypes.INTEGER, 
+    defaultValue: 0 
+  },
 }, {
- timestamps: true // Agrega los campos createdAt y updatedAtautomáticamente
- });
+  tableName: 'products',
+  timestamps: true,
+});
+
 module.exports = Product;
