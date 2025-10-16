@@ -1,22 +1,26 @@
 const express = require('express');
 const router = express.Router();
+const Factura = require('../models/Factura');
+const User = require('../models/User');
 const Product = require('../models/Product');
 
-// Obtener todos los productos
+// Obtener todas las facturas con datos de usuario y producto
 router.get('/', async (req, res) => {
   try {
-    const products = await Product.findAll();
-    res.json(products);
+    const facturas = await Factura.findAll({
+      include: [User, Product]
+    });
+    res.json(facturas);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// Crear producto
+// Crear factura
 router.post('/', async (req, res) => {
   try {
-    const nuevoProducto = await Product.create(req.body);
-    res.status(201).json(nuevoProducto);
+    const nuevaFactura = await Factura.create(req.body);
+    res.status(201).json(nuevaFactura);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

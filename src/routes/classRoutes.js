@@ -1,22 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const Product = require('../models/Product');
+const Class = require('../models/Class');
 
-// Obtener todos los productos
+// Obtener todas las clases
 router.get('/', async (req, res) => {
   try {
-    const products = await Product.findAll();
-    res.json(products);
+    const clases = await Class.findAll();
+    res.json(clases);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// Crear producto
+// Crear nueva clase
 router.post('/', async (req, res) => {
   try {
-    const nuevoProducto = await Product.create(req.body);
-    res.status(201).json(nuevoProducto);
+    const nuevaClase = await Class.create(req.body);
+    res.status(201).json(nuevaClase);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
