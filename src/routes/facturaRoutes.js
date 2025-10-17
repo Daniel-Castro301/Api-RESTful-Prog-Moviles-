@@ -26,4 +26,29 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Actualizar factura
+router.put('/:id', async (req, res) => {
+  try {
+    const factura = await Factura.findByPk(req.params.id);
+    if (!factura) return res.status(404).json({ error: 'Factura no encontrada' });
+
+    await factura.update(req.body);
+    res.json(factura);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Eliminar factura
+router.delete('/:id', async (req, res) => {
+  try {
+    const factura = await Factura.findByPk(req.params.id);
+    if (!factura) return res.status(404).json({ error: 'Factura no encontrada' });
+
+    await factura.destroy();
+    res.json({ message: 'Factura eliminada correctamente' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 module.exports = router;

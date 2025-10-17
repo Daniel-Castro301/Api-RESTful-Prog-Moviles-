@@ -22,4 +22,28 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.put('/:id', async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
+
+    await user.update(req.body);
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Eliminar usuario
+router.delete('/:id', async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
+
+    await user.destroy();
+    res.json({ message: 'Usuario eliminado correctamente' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 module.exports = router;
